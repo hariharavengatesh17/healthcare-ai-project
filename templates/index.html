@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NextGen Care</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            text-align: center;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            width: 80px;
+            height: 80px;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .symptom {
+            background-color: #2a2a2a;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .symptom input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .btn {
+            background-color: #00bcd4;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 30px auto 10px auto;
+        }
+
+        .btn:hover {
+            background-color: #0097a7;
+        }
+
+        .result, .vitals {
+            margin-top: 30px;
+            background-color: #263238;
+            padding: 20px;
+            border-left: 6px solid #00e676;
+            border-radius: 10px;
+        }
+
+        .result h3 {
+            font-size: 22px;
+            color: #00e676;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png" alt="Logo" class="logo">
+        <h2>🧠 NextGen Care</h2>
+
+        <form method="POST">
+            <h4>Select your symptoms:</h4>
+            <div class="checkbox-grid">
+                {% for symptom in symptom_columns %}
+                    <div class="symptom">
+                        <input type="checkbox" name="symptoms" value="{{ symptom }}" id="{{ symptom }}">
+                        <label for="{{ symptom }}">{{ symptom.replace("_", " ").capitalize() }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn">Run Diagnosis</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h3>🩺 Diagnosis: {{ result.diagnosis }}</h3>
+            <p>{{ result.note }}</p>
+        </div>
+
+        <div class="vitals">
+            <h4>📊 Simulated Vital Signs:</h4>
+            <ul>
+                {% for key, value in vitals.items() %}
+                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <footer>
+            &copy; 2025 Hariharavenagesh S — All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>
